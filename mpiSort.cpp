@@ -3,7 +3,7 @@
 #include <vector>
 #include <mpi.h>
 #include <chrono>
-#include <algorithm> // Для std::merge
+#include <algorithm>
 
 using namespace std;
 using namespace std::chrono;
