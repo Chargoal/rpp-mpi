@@ -66,21 +66,21 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // Broadcast the array data to all processes
+    /* // Broadcast the array data to all processes
     if (rank == 0) {
         MPI_Bcast(numbers.data(), numbersSize, MPI_INT, 0, MPI_COMM_WORLD);
-    }
+    }*/
 
     // Calculate local size based on number of processes
     int localSize = numbersSize / size;
     int remainder = numbersSize % size;
     int localOffset = rank * localSize;
-    if (rank < remainder) {
+    /*if (rank < remainder) {
         localSize++;
         localOffset += rank;
     } else {
         localOffset += remainder;
-    }
+    }*/
 
     cout << "Rank " << rank << ": numbersSize = " << numbersSize << ", localSize = " << localSize << endl;
 
@@ -95,6 +95,11 @@ int main(int argc, char** argv) {
     // Final merge step on root process
     if (rank == 0) {
         // Merge all the sorted localData arrays into numbers
+        /*vector<int> remainderData(numbers.begin() + numbersSize - remainder, numbers.begin() + numbersSize);
+        bubbleSort(remainderData);
+        for (int i = 1; i <= remainder; ++i) {
+        numbers[numbersSize - i] = remainderData[remainder - i];
+        }*/
         for (int step = 1; step < size; step *= 2) {
             for (int i = 0; i < size; i += 2 * step) {
                 int start = i * localSize;
